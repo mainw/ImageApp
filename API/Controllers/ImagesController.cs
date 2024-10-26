@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ServiceLib.Interfaces;
+using API.Interfaces;
 
 [ApiController]
 [Route("api/[controller]")]

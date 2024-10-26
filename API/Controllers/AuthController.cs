@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ServiceLib.Interfaces;
+using API.Interfaces;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -18,7 +18,7 @@ public class AuthController : ControllerBase
     public async Task<IActionResult> Login([FromBody] LoginRequest request)
     {
         _logger.LogInformation("Пользователь {Username} пытается авторизоваться", request.Username);
-        var isAuthenticated = await _userService.AuthenticateAsync(request.Username, request.Password);
+        var isAuthenticated = await _userService.AuthenticateAsync(request.Username??"", request.Password??"");
         if (isAuthenticated)
         {
             // Генерация JWT токена или другой метод авторизации
@@ -32,6 +32,6 @@ public class AuthController : ControllerBase
 
 public class LoginRequest
 {
-    public string Username { get; set; }
-    public string Password { get; set; }
+    public string? Username { get; set; }
+    public string? Password { get; set; }
 }

@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ServiceLib.Models;
+using API.DataBase.Models;
 
 
 namespace API.DataBase.Context
