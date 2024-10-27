@@ -24,7 +24,7 @@ namespace API.ImageService.Services
         public void Delete(Image image)
         {
             _imageRepository.Delete(image);
-            _logger.LogInformation($"Удалено изображение ID {image.Id} для пользователя ID {user.Id}");
+            _logger.LogInformation($"Удалено изображение ID {image.Id}");
         }
         public Image? GetById(int id)
         {

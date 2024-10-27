@@ -1,7 +1,5 @@
 using Avalonia.Controls;
 using Avalonia.Styling;
-using ServiceLib;
-using ServiceLib.DataBaseContext;
 using System.Linq;
 namespace UI
 {
