@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using API.ImageService.Interfaces;
+using API.ImageService.Services;
 
 [ApiController]
 [Route("[controller]")]
@@ -21,13 +21,10 @@ public class AuthController : ControllerBase
         var isAuthenticated = await _userService.AuthenticateAsync(request.Username??"", request.Password??"");
         if (isAuthenticated)
         {
-            // Генерация JWT токена или другой метод авторизации
-            return Ok(new { Token = "GeneratedToken" });
+            return Ok();
         }
         return Unauthorized();
     }
-
-    // Другие действия
 }
 
 public class LoginRequest
