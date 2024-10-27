@@ -3,9 +3,8 @@ namespace API.ImageService.Services
 {
     public interface IImageService
     {
-        ICollection<Image> Get(int userId);
-        void Add(int userId, byte[] imageData);
-        void Delete(int userId, int imageId);
-        // Другие методы
+        void Add(User user, byte[] imageData);
+        void Delete(User user, Image image);
+        ICollection<Image>? GetAllByUser(User user);
     }
 }

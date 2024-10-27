@@ -3,7 +3,6 @@ namespace API.ImageService.Services
 {
     public interface IUserService
     {
-        Task<bool> AuthenticateAsync(string username, string password);
-        // Другие методы
+        bool Authenticate(string username, string password);
     }
 }

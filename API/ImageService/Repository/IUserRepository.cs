@@ -4,7 +4,8 @@ namespace API.ImageService.Repository
     public interface IUserRepository
     {
         void Add(User user);
-        //User GetUserByUsername(string username);
         ICollection<User> GetAll();
+        User? GetByUsernameAndPassword(string username, string password);
+        User? GetById(int id);
     }
 }
