@@ -4,8 +4,59 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="UI.MainWindow"
-        Title="UI">
+        Title="UI" Foreground="Black"
+		SystemDecorations="None">
+	<Window.Styles>
+		<Style Selector="Border">
+			<Setter Property="BorderBrush" Value="Black"/>
+			<Setter Property="BorderThickness" Value="1"/>
+			<Setter Property="Margin" Value="5"/>
+		</Style>
+		<Style Selector="Button">
+			<Setter Property="Width" Value="100"/>
+			<Setter Property="Height" Value="40"/>
+			<Setter Property="Margin" Value="5"/>
+			<Setter Property="HorizontalContentAlignment" Value="Center"/>
+			<Setter Property="VerticalContentAlignment" Value="Center"/>
+			<Setter Property="Foreground" Value="Black"/>
+		</Style>
+	</Window.Styles>
 	<Grid>
-		<TextBlock Name="Qwe" Text="qweee"/>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="1*"/>
+			<ColumnDefinition Width="1*"/>
+		</Grid.ColumnDefinitions>
+		<Border HorizontalAlignment="Stretch" Grid.Column="0">
+			<Image Name="selectedImage"/>
+		</Border>
+		<Grid Grid.Column="1" Margin="5">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="1*"/>
+				<RowDefinition Height="8*"/>
+				<RowDefinition Height="3*"/>
+			</Grid.RowDefinitions>
+			<TextBlock Text="Изображения" HorizontalAlignment="Center" Grid.Row="0"/>
+			<ScrollViewer Grid.Row="1">
+				<ItemsControl ItemsSource="">
+					<ItemsControl.ItemsPanel>
+						<ItemsPanelTemplate>
+							<WrapPanel Orientation="Horizontal" ItemWidth="50" ItemHeight="50"/>
+						</ItemsPanelTemplate>
+					</ItemsControl.ItemsPanel>
+					<ItemsControl.ItemTemplate>
+						<DataTemplate>
+							<Border>
+								<Image Source="{Binding}"/>
+							</Border>
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+					<TextBlock/>
+				</ItemsControl>
+			</ScrollViewer>
+			<StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center">
+				<Button Content="Добавить" Name="addImageButton" Background="#F8CECC" BorderBrush="#BF625E" Click="addImageButtonButton_Click" PointerEntered="Button_PointerEntered" PointerExited="Button_PointerExited"/>
+				<Button Content="Удалить" Name="dropImageButton" Background="#D5E8D4" BorderBrush="#89B86F" Click="dropImageButtonButton_Click" PointerEntered="Button_PointerEntered" PointerExited="Button_PointerExited"/>
+			</StackPanel>
+		</Grid>
 	</Grid>
 </Window>

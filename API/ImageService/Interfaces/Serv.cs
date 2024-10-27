@@ -1,6 +1,6 @@
-﻿using API.DataBase.Models;
+﻿using API.ImageService.Models;
 
-namespace API.Interfaces
+namespace API.ImageService.Interfaces
 {
     public interface IUserRepository
     {

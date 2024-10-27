@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using API.Interfaces;
+using API.ImageService.Interfaces;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("[controller]")]
 public class AuthController : ControllerBase
 {
     private readonly IUserService _userService;

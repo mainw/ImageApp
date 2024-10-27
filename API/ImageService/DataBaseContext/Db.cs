@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using API.DataBase.Models;
+using API.ImageService.Models;
 
 
-namespace API.DataBase.Context
+namespace API.ImageService.DataBaseContext
 {
     public class Db : DbContext
     {

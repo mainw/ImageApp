@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace API.DataBase.Models
+namespace API.ImageService.Models
 {
-    public  class Image
+    public class Image
     {
         [Key]
         [Column("id_image")]
