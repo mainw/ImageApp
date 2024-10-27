@@ -3,8 +3,8 @@ namespace API.ImageService.Repository
 {
     public interface IImageRepository
     {
-        Task<IEnumerable<Image>> GetImagesByUserIdAsync(int userId);
-        Task AddImageAsync(Image image);
-        Task DeleteImageAsync(int imageId);
+        void Add(Image image);
+        void Delete(Image image);
+        ICollection<Image>? GetByUser(User user);
     }
 }

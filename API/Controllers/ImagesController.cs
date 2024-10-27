@@ -20,7 +20,7 @@ public class ImagesController : ControllerBase
     public async Task<IActionResult> GetImages()
     {
         var userId = GetUserId(); // Реализуйте метод получения ID из токена
-        var images = await _imageService.GetImagesAsync(userId);
+        var images = await _imageService.Get(userId);
         return Ok(images);
     }
 
@@ -30,7 +30,7 @@ public class ImagesController : ControllerBase
         var userId = GetUserId();
         using var memoryStream = new MemoryStream();
         await imageFile.CopyToAsync(memoryStream);
-        await _imageService.AddImageAsync(userId, memoryStream.ToArray());
+        await _imageService.Add(userId, memoryStream.ToArray());
         return Ok();
     }
 

@@ -6,6 +6,7 @@ namespace API.ImageService.DataBaseContext
 {
     public class Db : DbContext
     {
+        static public Db _context = new();
         public DbSet<User> Users { get; set; }
         public DbSet<Image> Images { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
