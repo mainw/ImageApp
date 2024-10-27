@@ -1,36 +1,24 @@
 ﻿using Autofac;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Autofac.Core;
+using Serilog;
+using UI.ViewModels;
 namespace UI
 {
     public static class Bootstrapper
     {
-        /*
-        public static void Register(IMutableDependencyResolver services, IReadonlyDependencyResolver resolver)
+        public static IContainer ConfigureContainer()
         {
-            services.Register<IPlatformService>(() => new PlatformService());  // Call services.Register<T> and pass it lambda that creates instance of your service
-        }
-        */
-        public static void ConfigureContainer()
-        {
-            // получаем экземпляр контейнера
             var builder = new ContainerBuilder();
 
-            // регистрируем контроллер в текущей сборке
-            //builder.RegisterControllers(typeof(MvcApplication).Assembly);
+            // Регистрация логгера
+            builder.RegisterInstance(Log.Logger).As<ILogger>().SingleInstance();
 
-            // регистрируем споставление типов
-            //builder.RegisterType<BookRepository>().As<IRepository>();
+            // Регистрация ViewModels
+            builder.RegisterType<MainWindowViewModel>().AsSelf().SingleInstance();
+            builder.RegisterType<LoginViewModel>().AsSelf().SingleInstance();
 
-            // создаем новый контейнер с теми зависимостями, которые определены выше
-            var container = builder.Build();
+            // Другие регистрации по необходимости
 
-            // установка сопоставителя зависимостей
-            //DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+            return builder.Build();
         }
     }
 }
