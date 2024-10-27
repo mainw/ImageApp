@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using API.ImageService.Interfaces;
+using API.ImageService.Services;
 
 [ApiController]
 [Route("[controller]")]
@@ -24,8 +24,8 @@ public class ImagesController : ControllerBase
         return Ok(images);
     }
 
-    [HttpPost]
-    public async Task<IActionResult> AddImage([FromForm] IFormFile imageFile)
+    [HttpPost("{id}")]//--------------------
+    public async Task<IActionResult> AddImage([FromForm] IFormFile imageFile, int id)
     {
         var userId = GetUserId();
         using var memoryStream = new MemoryStream();
