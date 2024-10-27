@@ -23,10 +23,14 @@ namespace API.ImageService.Repository
             _context.Images.Remove(image);
             _context.SaveChanges();
         }
-
-        public ICollection<Image> GetByUser(User user)
+        public Image? GetById(int imageId)
         {
-            return  _context.Images.Where(i => i.User.Id == user.Id).ToList();
+            return _context.Images.FirstOrDefault(p => p.Id == imageId);
+        }
+
+        public ICollection<Image> GetAllByUser(User user)
+        {
+            return  _context.Images.Where(p => p.User.Id == user.Id).ToList();
         }
     }
 }

@@ -5,6 +5,7 @@ namespace API.ImageService.Repository
     {
         void Add(Image image);
         void Delete(Image image);
-        ICollection<Image>? GetByUser(User user);
+        Image? GetById(int imageId);
+        ICollection<Image>? GetAllByUser(User user);
     }
 }

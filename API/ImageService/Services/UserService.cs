@@ -13,16 +13,19 @@ namespace API.ImageService.Services
             _userRepository = userRepository;
             _logger = logger;
         }
-
-        public bool Authenticate(string username, string password)
+        //public bool Authenticate(string username, string password)
+        //{
+        //    var user = _userRepository.GetByUsernameAndPassword(username, password);
+        //    if (user == null)
+        //    {
+        //        _logger.LogInformation($"Пользователь {username} не найден");
+        //        return false;
+        //    }
+        //    return true;
+        //}
+        public User? GetByUsernameAndPassword(string username, string password)
         {
-            var user = _userRepository.GetByUsernameAndPassword(username, password);
-            if (user == null)
-            {
-                _logger.LogInformation($"Пользователь {username} не найден");
-                return false;
-            }
-            return true;
+            return _userRepository.GetByUsernameAndPassword(username, password);
         }
     }
 }
