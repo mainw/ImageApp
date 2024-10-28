@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using API.ImageService.Services;
+using System.Threading.Tasks;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
 
 [ApiController]
 [Route("[controller]")]
@@ -17,34 +20,33 @@ public class ImagesController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetImages()
+    public IActionResult GetImages()
     {
-        var userId = GetUserId(); // Реализуйте метод получения ID из токена
-        var images = await _imageService.GetImagesAsync(userId);
-        return Ok(images);
+        var userId = GetUserId();
+        var images = _imageService.GetAllByUser(_imageService.GetUserById(userId));
+        return Ok(images.Select(i => new { i.Id, ImageData = Convert.ToBase64String(i.ImageData) }));
     }
 
-    [HttpPost("{id}")]//--------------------
-    public async Task<IActionResult> AddImage([FromForm] IFormFile imageFile, int id)
+    [HttpPost]
+    public IActionResult AddImage(IFormFile imageFile)
     {
         var userId = GetUserId();
         using var memoryStream = new MemoryStream();
-        await imageFile.CopyToAsync(memoryStream);
-        await _imageService.AddImageAsync(userId, memoryStream.ToArray());
+        imageFile.CopyToAsync(memoryStream);
+        _imageService.Add(_imageService.GetUserById(userId), memoryStream.ToArray());
         return Ok();
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteImage(int id)
+    public IActionResult DeleteImage(int id)
     {
-        var userId = GetUserId();
-        await _imageService.DeleteImageAsync(userId, id);
-        return NoContent();
+        _imageService.Delete(_imageService.GetById(id));
+        return Ok();
     }
 
     private int GetUserId()
     {
-        // Реализуйте получение ID пользователя из Claims
-        return 1; // Пример
+        var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "id");
+        return userIdClaim != null ? int.Parse(userIdClaim.Value) : throw new Exception("User ID not found in token");
     }
 }

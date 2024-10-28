@@ -3,7 +3,9 @@ namespace API.ImageService.Repository
 {
     public interface IUserRepository
     {
-        Task<User> GetUserByUsernameAsync(string username);
-        Task AddUserAsync(User user);
+        void Add(User user);
+        User? GetById(int id);
+        User? GetByUsernameAndPassword(string username, string password);
+        ICollection<User> GetAll();
     }
 }

@@ -54,8 +54,8 @@
 				</ItemsControl>
 			</ScrollViewer>
 			<StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center">
-				<Button Content="Добавить" Name="addImageButton" Background="#F8CECC" BorderBrush="#BF625E" Click="addImageButtonButton_Click" PointerEntered="Button_PointerEntered" PointerExited="Button_PointerExited"/>
-				<Button Content="Удалить" Name="dropImageButton" Background="#D5E8D4" BorderBrush="#89B86F" Click="dropImageButtonButton_Click" PointerEntered="Button_PointerEntered" PointerExited="Button_PointerExited"/>
+				<Button Content="Добавить" Name="addImageButton" Background="#F8CECC" BorderBrush="#BF625E" Click="addImageButton_Click"/>
+				<Button Content="Удалить" Name="dropImageButton" Background="#D5E8D4" BorderBrush="#89B86F" Click="dropImageButton_Click"/>
 			</StackPanel>
 		</Grid>
 	</Grid>

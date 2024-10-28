@@ -1,45 +1,33 @@
 using Avalonia.Controls;
+using Avalonia.Interactivity;
+using UI.ViewModels;
 using Avalonia.Styling;
-using ServiceLib;
-using ServiceLib.DataBaseContext;
 using System.Linq;
 namespace UI
 {
     public partial class MainWindow : Window
     {
+        private readonly MainWindowViewModel _viewModel;
+
         public MainWindow()
         {
             InitializeComponent();
-            //Db db = new Db();
-            //db.Users.Add(new ServiceLib.Models.User("qwe", "qwe"));
-            //db.SaveChanges();
-            //Qwe.Text = db.Users.FirstOrDefault(p => p.Id == 1)?.Login;
+            _viewModel = new MainWindowViewModel();
+            DataContext = _viewModel;
         }
-
-        private void dropImageButtonButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+        private async void addImageButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
-        }
-
-        private void addImageButtonButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
-        {
-        }
-
-        private void Button_PointerEntered(object? sender, Avalonia.Input.PointerEventArgs e)
-        {
-            if (sender is Button button)
+            var dialog = new OpenFileDialog();
+            var result = await dialog.ShowAsync(this);
+            if (result != null && result.Length > 0)
             {
-                //button.Opacity = 0.7;
+                var filePath = result[0];
+                await _viewModel.AddImageAsync(filePath);
             }
-
-            e.Handled = false;
         }
-
-        private void Button_PointerExited(object? sender, Avalonia.Input.PointerEventArgs e)
+        private async void dropImageButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
-            if (sender is Button button)
-            {
-                button.Opacity = 1.0;
-            }
+            await _viewModel.DeleteSelectedImageAsync(4);
         }
     }
 }
