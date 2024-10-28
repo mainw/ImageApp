@@ -27,11 +27,17 @@ namespace UI
 
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                var mainWindow = new MainWindow
+                var mainWindow = new LoginWindow()
                 {
-                    DataContext = _container.Resolve<MainWindowViewModel>()
+                    DataContext = _container.Resolve<LoginViewModel>()
                 };
                 desktop.MainWindow = mainWindow;
+                
+                //var mainWindow = new MainWindow
+                //{
+                //    DataContext = _container.Resolve<MainWindowViewModel>()
+                //};
+                //desktop.MainWindow = mainWindow;
             }
 
             base.OnFrameworkInitializationCompleted();

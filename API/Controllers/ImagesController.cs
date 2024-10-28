@@ -28,7 +28,7 @@ public class ImagesController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult AddImage([FromForm] IFormFile imageFile)
+    public IActionResult AddImage(IFormFile imageFile)
     {
         var userId = GetUserId();
         using var memoryStream = new MemoryStream();

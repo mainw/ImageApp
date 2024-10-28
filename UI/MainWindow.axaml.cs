@@ -15,5 +15,19 @@ namespace UI
             _viewModel = new MainWindowViewModel();
             DataContext = _viewModel;
         }
+        private async void addImageButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+        {
+            var dialog = new OpenFileDialog();
+            var result = await dialog.ShowAsync(this);
+            if (result != null && result.Length > 0)
+            {
+                var filePath = result[0];
+                await _viewModel.AddImageAsync(filePath);
+            }
+        }
+        private async void dropImageButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+        {
+            await _viewModel.DeleteSelectedImageAsync(4);
+        }
     }
 }

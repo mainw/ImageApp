@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using System.Net.Http.Json;
 using System;
+using UI.Services;
 
 namespace UI.ViewModels
 {
@@ -18,7 +19,7 @@ namespace UI.ViewModels
         public MainWindowViewModel()
         {
             _httpClient = new HttpClient { BaseAddress = new Uri("http://localhost:5000/") };
-            // Загрузите токен из хранилища
+            _token = TokenService.Token;
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
             LoadImagesAsync();
         }

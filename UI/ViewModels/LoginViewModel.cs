@@ -5,6 +5,7 @@ using System.Reactive;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using UI.Services;
 namespace UI.ViewModels
 {
     public class LoginViewModel : ReactiveObject
@@ -43,10 +44,9 @@ namespace UI.ViewModels
             {
                 var responseContent = await response.Content.ReadAsStringAsync();
                 var token = JsonSerializer.Deserialize<JsonElement>(responseContent).GetProperty("Token").GetString();
-                // Сохраните токен для дальнейших запросов
+                TokenService.Token = token;
                 return true;
             }
-
             return false;
         }
 

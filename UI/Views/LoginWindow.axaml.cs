@@ -7,9 +7,11 @@ namespace UI;
 
 public partial class LoginWindow : Window
 {
+    public LoginViewModel LoginViewModel { get; }
     public LoginWindow()
     {
         InitializeComponent();
-        DataContext = new LoginViewModel();
+        LoginViewModel = new LoginViewModel();
+        DataContext = LoginViewModel;
     }
 }
