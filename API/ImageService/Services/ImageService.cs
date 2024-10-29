@@ -26,10 +26,15 @@ namespace API.ImageService.Services
             _logger.LogInformation($"Добавлено изображение для пользователя ID {user.IdUser}");
         }
 
-        public void Delete(Image image)
+        public void Delete(User user, Image image)
         {
-            _imageRepository.Delete(image);
-            _logger.LogInformation($"Удалено изображение ID {image.IdImage}");
+            if (user.IdUser == image.IdUser)
+            {
+                _imageRepository.Delete(image);
+                _logger.LogInformation($"Удалено изображение ID {image.IdImage}");
+            }
+            else
+                throw new Exception("Невозможно удалить изображение. Пользователь не имеет доступа.");
         }
         public Image? GetById(int id)
         {

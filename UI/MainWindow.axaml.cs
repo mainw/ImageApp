@@ -27,7 +27,7 @@ namespace UI
         }
         private async void dropImageButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
-            await _viewModel.DeleteSelectedImageAsync(4);
+            await _viewModel.DeleteSelectedImageAsync(3);
         }
     }
 }

@@ -20,8 +20,13 @@ namespace API.ImageService.Repository
 
         public void Delete(Image image)
         {
-            _context.Images.Remove(image);
-            _context.SaveChanges();
+            if (_context.Images.Contains(image))
+            {
+                _context.Images.Remove(image);
+                _context.SaveChanges();
+            }
+            else
+                throw new Exception("Изображение не найдено. Удаление не возможно.");
         }
         public Image? GetById(int imageId)
         {

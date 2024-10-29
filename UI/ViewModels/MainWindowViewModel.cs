@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Net.Http.Json;
 using System;
 using UI.Services;
+using Avalonia.Media.Imaging;
+using System.IO;
 
 namespace UI.ViewModels
 {
@@ -66,11 +68,19 @@ namespace UI.ViewModels
     {
         public int Id { get; }
         public string ImageData { get; }
+        public Bitmap ImageBitmap
+        {
+            get
+            {
+                byte[] data = Convert.FromBase64String(ImageData);
+                return new Bitmap(new MemoryStream(data));
+            }
+        }
 
         public ImageViewModel(ImageDto image)
         {
             Id = image.Id;
-            ImageData = $"data:image/jpeg;base64,{image.ImageData}";
+            ImageData = $"{image.ImageData.Trim()}";//ImageData = $"data:image/jpeg;base64,{image.ImageData.Trim()}";
         }
     }
 
@@ -78,6 +88,5 @@ namespace UI.ViewModels
     {
         public int Id { get; set; }
         public string ImageData { get; set; }
-
     }
 }

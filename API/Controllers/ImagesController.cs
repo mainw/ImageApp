@@ -25,7 +25,6 @@ public class ImagesController : ControllerBase
     public IActionResult GetImages()
     {
         var userId = GetUserId();
-        Log.Information($"Пользователь: {_imageService.GetUserById(userId).Login} {_imageService.GetAllByUser(_imageService.GetUserById(userId)).Count}");
         var images = _imageService.GetAllByUser(_imageService.GetUserById(userId));
         return Ok(images?.Select(i => new { i.IdImage, ImageData = Convert.ToBase64String(i.Data) }));
     }
@@ -43,7 +42,8 @@ public class ImagesController : ControllerBase
     [HttpDelete("{id}")]
     public IActionResult DeleteImage(int id)
     {
-        _imageService.Delete(_imageService.GetById(id));
+        var userId = GetUserId();
+        _imageService.Delete(_imageService.GetUserById(userId), _imageService.GetById(id));
         return Ok();
     }
 
