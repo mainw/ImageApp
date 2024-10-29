@@ -27,6 +27,7 @@ namespace UI
 
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
+                desktop.Exit += OnExit;
                 var mainWindow = new LoginWindow()
                 {
                     DataContext = _container.Resolve<LoginViewModel>()
