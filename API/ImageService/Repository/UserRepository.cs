@@ -30,7 +30,7 @@ namespace API.ImageService.Repository
 
         public User? GetById(int id)
         {
-            return _context.Users.FirstOrDefault(u => u.Id == id);
+            return _context.Users.FirstOrDefault(u => u.IdUser == id);
         }
     }
 }

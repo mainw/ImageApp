@@ -7,15 +7,11 @@ namespace API.ImageService.Models
     {
         [Key]
         [Column("id_image")]
-        public int Id { get; set; }
+        public int IdImage { get; set; }
+        [Column("id_user")]
+        public int IdUser { get; set; }
         [Column("data_i")]
-        public byte[]? ImageData { get; set; }
-        public User? User { get; }
-        public Image() { }
-        public Image(User user, byte[] data)
-        {
-            User = user ?? throw new ArgumentNullException(nameof(user));
-            ImageData = data;
-        }
+        public byte[] Data { get; set; }
+        public User User { get; set; }
     }
 }

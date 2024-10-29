@@ -4,6 +4,8 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using UI.ViewModels;
 using Serilog;
+using System;
+using Avalonia.Controls;
 
 namespace UI
 {
@@ -27,23 +29,19 @@ namespace UI
 
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
+                ChangeMainWindow(typeof(LoginWindow), typeof(LoginViewModel));
                 desktop.Exit += OnExit;
-                var mainWindow = new LoginWindow()
-                {
-                    DataContext = _container.Resolve<LoginViewModel>()
-                };
-                desktop.MainWindow = mainWindow;
-                
-                //var mainWindow = new MainWindow
-                //{
-                //    DataContext = _container.Resolve<MainWindowViewModel>()
-                //};
-                //desktop.MainWindow = mainWindow;
             }
-
             base.OnFrameworkInitializationCompleted();
         }
+        public void ChangeMainWindow(Type typeView, Type typeModel)
+        {
+            object viewObject = Activator.CreateInstance(typeView);
+            object modelObject = _container.GetType().GetMethod("Resolve")?.MakeGenericMethod(typeModel).Invoke(_container, new object[] { });
 
+            //typeView.GetProperty("DataContext").SetValue(viewObject, modelObject);
+            (ApplicationLifetime as IClassicDesktopStyleApplicationLifetime).MainWindow = (Window)viewObject;
+        }
         private void OnExit(object sender, ControlledApplicationLifetimeExitEventArgs e)
         {
             Log.Information("App is shutting down");

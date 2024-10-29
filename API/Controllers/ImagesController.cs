@@ -4,6 +4,8 @@ using API.ImageService.Services;
 using System.Threading.Tasks;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Primitives;
+using Serilog;
 
 [ApiController]
 [Route("[controller]")]
@@ -23,8 +25,9 @@ public class ImagesController : ControllerBase
     public IActionResult GetImages()
     {
         var userId = GetUserId();
+        Log.Information($"Пользователь: {_imageService.GetUserById(userId).Login} {_imageService.GetAllByUser(_imageService.GetUserById(userId)).Count}");
         var images = _imageService.GetAllByUser(_imageService.GetUserById(userId));
-        return Ok(images.Select(i => new { i.Id, ImageData = Convert.ToBase64String(i.ImageData) }));
+        return Ok(images?.Select(i => new { i.IdImage, ImageData = Convert.ToBase64String(i.Data) }));
     }
 
     [HttpPost]

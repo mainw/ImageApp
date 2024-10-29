@@ -66,7 +66,7 @@ builder.Services.AddAuthentication(options =>
 var app = builder.Build();
 
 // Конфигурация pipeline
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || true)
 {
     app.UseDeveloperExceptionPage();
     app.UseSwagger();

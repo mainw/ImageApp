@@ -16,15 +16,20 @@ namespace API.ImageService.Services
         }
         public void Add(User user, byte[] imageData)
         {
-            Image image = new Image(user, imageData);
+            Image image = new Image()
+            {
+                User = user,
+                Data = imageData
+            };
+            _logger.LogInformation($"______Image {user.IdUser}");
             _imageRepository.Add(image);
-            _logger.LogInformation($"Добавлено изображение для пользователя ID {user.Id}");
+            _logger.LogInformation($"Добавлено изображение для пользователя ID {user.IdUser}");
         }
 
         public void Delete(Image image)
         {
             _imageRepository.Delete(image);
-            _logger.LogInformation($"Удалено изображение ID {image.Id}");
+            _logger.LogInformation($"Удалено изображение ID {image.IdImage}");
         }
         public Image? GetById(int id)
         {
@@ -36,7 +41,7 @@ namespace API.ImageService.Services
         }
         public ICollection<Image>? GetAllByUser(User user)
         {
-            return user.Images?.ToList();
+            return _imageRepository.GetAllByUser(user);
         }
     }
 }

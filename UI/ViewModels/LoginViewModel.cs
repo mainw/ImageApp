@@ -1,4 +1,5 @@
-﻿using ReactiveUI;
+﻿using Avalonia.Controls.ApplicationLifetimes;
+using ReactiveUI;
 using System;
 using System.Net.Http;
 using System.Reactive;
@@ -34,7 +35,7 @@ namespace UI.ViewModels
             LoginCommand = ReactiveCommand.CreateFromTask(LoginAsync);
         }
 
-        private async Task<bool> LoginAsync()
+        public async Task<bool> LoginAsync()
         {
             var request = new { Username, Password };
             var content = new StringContent(JsonSerializer.Serialize(request), Encoding.UTF8, "application/json");
@@ -43,7 +44,7 @@ namespace UI.ViewModels
             if (response.IsSuccessStatusCode)
             {
                 var responseContent = await response.Content.ReadAsStringAsync();
-                var token = JsonSerializer.Deserialize<JsonElement>(responseContent).GetProperty("Token").GetString();
+                var token = JsonSerializer.Deserialize<JsonElement>(responseContent).GetProperty("token").GetString();
                 TokenService.Token = token;
                 return true;
             }

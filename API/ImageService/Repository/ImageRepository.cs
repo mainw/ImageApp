@@ -25,12 +25,12 @@ namespace API.ImageService.Repository
         }
         public Image? GetById(int imageId)
         {
-            return _context.Images.FirstOrDefault(p => p.Id == imageId);
+            return _context.Images.FirstOrDefault(p => p.IdImage == imageId);
         }
 
         public ICollection<Image> GetAllByUser(User user)
         {
-            return  _context.Images.Where(p => p.User.Id == user.Id).ToList();
+            return  _context.Images.Where(p => p.User.IdUser == user.IdUser).ToList();
         }
     }
 }

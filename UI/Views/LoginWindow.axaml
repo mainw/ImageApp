@@ -21,9 +21,9 @@
 			</Grid.RowDefinitions>
 			<TextBlock Text="Логин:" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0"/>
 			<TextBlock Text="Пароль:" VerticalAlignment="Center" Grid.Column="0" Grid.Row="1"/>
-			<TextBox Text="{Binding Username}" Grid.Column="1" Grid.Row="0"/>
-			<TextBox Text="{Binding Password}" Grid.Column="1" Grid.Row="1"/>
+			<TextBox Name="loginTextBox" Grid.Column="1" Grid.Row="0" Text="{Binding Username}"/>
+			<TextBox  Name="passwordTextBox" Grid.Column="1" Grid.Row="1" Text="{Binding Password}"/>
 		</Grid>
-		<Button Content="Войти" Command="{Binding LoginCommand}" Margin="0,20,0,0" HorizontalAlignment="Center"/>
+		<Button Content="Войти"  Margin="0,20,0,0" HorizontalAlignment="Center" Click="Button_Click"/>
 	</StackPanel>
 </Window>

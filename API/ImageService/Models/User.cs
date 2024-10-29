@@ -7,17 +7,11 @@ namespace API.ImageService.Models
     {
         [Key]
         [Column("id_user")]
-        public int Id { get; set; }
+        public int IdUser { get; set; }
         [Column("login_u")]
-        public string? Login { get; set; }
+        public string Login { get; set; }
         [Column("password_u")]
-        public string? Password { get; set; }
-        public ICollection<Image>? Images { get; }
-        public User() { }
-        public User(string login, string password)
-        {
-            Login = login;
-            Password = password;
-        }
+        public string Password { get; set; }
+        public ICollection<Image> Images { get; set; }
     }
 }
