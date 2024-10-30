@@ -9,14 +9,14 @@ namespace UI
         {
             var builder = new ContainerBuilder();
 
-            // Регистрация логгера
+            
             builder.RegisterInstance(Log.Logger).As<ILogger>().SingleInstance();
 
-            // Регистрация ViewModels
+            
             builder.RegisterType<MainWindowViewModel>().AsSelf().SingleInstance();
             builder.RegisterType<LoginViewModel>().AsSelf().SingleInstance();
 
-            // Другие регистрации по необходимости
+            
 
             return builder.Build();
         }

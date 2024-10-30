@@ -9,6 +9,9 @@ using System;
 using UI.Services;
 using Avalonia.Media.Imaging;
 using System.IO;
+using System.ComponentModel;
+using System.Reactive;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace UI.ViewModels
 {
@@ -16,7 +19,32 @@ namespace UI.ViewModels
     {
         private readonly HttpClient _httpClient;
         private string _token;
+        private int? _selectedImageId;
+        private bool _isDropEnabled;
         public ObservableCollection<ImageViewModel> Images { get; } = new ObservableCollection<ImageViewModel>();
+        public ImageViewModel SelectedImage
+        {
+            get
+            {
+                if(_selectedImageId is int num && Images.Count != 0)
+                    return Images[num];
+                else
+                    return new ImageViewModel(new ImageDto());
+            }
+            set
+            {
+                if (value is ImageViewModel)
+                    this.RaiseAndSetIfChanged(ref _selectedImageId, Images.IndexOf(value));
+                else
+                    this.RaiseAndSetIfChanged(ref _selectedImageId, null);
+                IsDropEnabled = _selectedImageId is null ? false : true;
+            }
+        }
+        public bool IsDropEnabled
+        {
+            get => _isDropEnabled;
+            set => this.RaiseAndSetIfChanged(ref _isDropEnabled, value);
+        }
 
         public MainWindowViewModel()
         {
@@ -28,6 +56,7 @@ namespace UI.ViewModels
 
         public async Task LoadImagesAsync()
         {
+            _selectedImageId = null;
             var response = await _httpClient.GetAsync("Images");
             if (response.IsSuccessStatusCode)
             {
@@ -35,6 +64,7 @@ namespace UI.ViewModels
                 Images.Clear();
                 foreach (var img in images)
                 {
+                    Console.WriteLine(img.IdImage);
                     Images.Add(new ImageViewModel(img));
                 }
             }
@@ -54,8 +84,11 @@ namespace UI.ViewModels
             }
         }
 
-        public async Task DeleteSelectedImageAsync(int imageId)
+        public async Task DeleteSelectedImageAsync(int? imageId = null)
         {
+            if (imageId == null)
+                imageId = Images[(int)_selectedImageId].Id;
+
             var response = await _httpClient.DeleteAsync($"Images/{imageId}");
             if (response.IsSuccessStatusCode)
             {
@@ -79,14 +112,14 @@ namespace UI.ViewModels
 
         public ImageViewModel(ImageDto image)
         {
-            Id = image.Id;
-            ImageData = $"{image.ImageData.Trim()}";//ImageData = $"data:image/jpeg;base64,{image.ImageData.Trim()}";
+            Id = image.IdImage;
+            ImageData = image.ImageData;
         }
     }
 
     public class ImageDto
     {
-        public int Id { get; set; }
+        public int IdImage { get; set; }
         public string ImageData { get; set; }
     }
 }

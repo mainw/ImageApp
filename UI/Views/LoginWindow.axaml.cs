@@ -26,8 +26,6 @@ public partial class LoginWindow : Window
 
     private async void Button_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        //(DataContext as LoginViewModel).Username = loginTextBox.Text;
-        //(DataContext as LoginViewModel).Password = passwordTextBox.Text;
         bool isAuthorize = await LoginViewModel.LoginCommand.Execute();
         if (isAuthorize)
         {

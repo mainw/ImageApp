@@ -29,7 +29,7 @@
 			<ColumnDefinition Width="1*"/>
 		</Grid.ColumnDefinitions>
 		<Border HorizontalAlignment="Stretch" Grid.Column="0">
-			<Image Name="selectedImage"/>
+			<Image Source="{Binding SelectedImage.ImageBitmap}"/>
 		</Border>
 		<Grid Grid.Column="1" Margin="5">
 			<Grid.RowDefinitions>
@@ -38,25 +38,23 @@
 				<RowDefinition Height="3*"/>
 			</Grid.RowDefinitions>
 			<TextBlock Text="Изображения" HorizontalAlignment="Center" Grid.Row="0"/>
-			<ScrollViewer Grid.Row="1">
-				<ItemsControl ItemsSource="{Binding Images}">
-					<ItemsControl.ItemsPanel>
-						<ItemsPanelTemplate>
-							<WrapPanel Orientation="Horizontal"/>
-						</ItemsPanelTemplate>
-					</ItemsControl.ItemsPanel>
-					<ItemsControl.ItemTemplate>
-						<DataTemplate>
-							<Border Margin="5">
-								<Image Source="{Binding ImageBitmap}" Width="100" Height="100" Stretch="Uniform"/>
-							</Border>
-						</DataTemplate>
-					</ItemsControl.ItemTemplate>
-				</ItemsControl>
-			</ScrollViewer>
+			<ListBox ItemsSource="{Binding Images}" Grid.Row="1" SelectionChanged="ListBox_SelectionChanged" Background="White">
+				<ListBox.ItemsPanel>
+					<ItemsPanelTemplate>
+						<WrapPanel Orientation="Horizontal"/>
+					</ItemsPanelTemplate>
+				</ListBox.ItemsPanel>
+				<ListBox.ItemTemplate>
+					<DataTemplate>
+						<Border Margin="5">
+							<Image Source="{Binding ImageBitmap}" Width="100" Height="100" Stretch="Uniform"/>
+						</Border>
+					</DataTemplate>
+				</ListBox.ItemTemplate>
+			</ListBox>
 			<StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center">
 				<Button Content="Добавить" Name="addImageButton" Background="#F8CECC" BorderBrush="#BF625E" Click="addImageButton_Click"/>
-				<Button Content="Удалить" Name="dropImageButton" Background="#D5E8D4" BorderBrush="#89B86F" Click="dropImageButton_Click"/>
+				<Button Content="Удалить" Name="dropImageButton" Background="#D5E8D4" BorderBrush="#89B86F" Click="dropImageButton_Click" IsEnabled="{Binding IsDropEnabled, UpdateSourceTrigger=PropertyChanged}"/>
 			</StackPanel>
 		</Grid>
 	</Grid>

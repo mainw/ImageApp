@@ -27,7 +27,18 @@ namespace UI
         }
         private async void dropImageButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
-            await _viewModel.DeleteSelectedImageAsync(3);
+            await _viewModel.DeleteSelectedImageAsync();
+        }
+
+        private void ListBox_SelectionChanged(object? sender, Avalonia.Controls.SelectionChangedEventArgs e)
+        {
+            if(sender is ListBox listBox)
+            {
+                if (listBox.SelectedItem is ImageViewModel imageModel)
+                    _viewModel.SelectedImage = imageModel;
+                else
+                    _viewModel.IsDropEnabled = !_viewModel.IsDropEnabled;
+            }
         }
     }
 }

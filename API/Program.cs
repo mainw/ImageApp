@@ -10,7 +10,7 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Настройка Serilog
+//Serilog
 Log.Logger = new LoggerConfiguration()
     .ReadFrom.Configuration(builder.Configuration)
     .Enrich.FromLogContext()
@@ -20,29 +20,26 @@ Log.Logger = new LoggerConfiguration()
 
 builder.Host.UseSerilog();
 
-// Использование Autofac
+//Autofac
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
 {
-    // Регистрация репозиториев
     containerBuilder.RegisterType<UserRepository>().As<IUserRepository>().InstancePerLifetimeScope();
     containerBuilder.RegisterType<ImageRepository>().As<IImageRepository>().InstancePerLifetimeScope();
 
-    // Регистрация сервисов
     containerBuilder.RegisterType<UserService>().As<IUserService>().InstancePerLifetimeScope();
     containerBuilder.RegisterType<ImageService>().As<IImageService>().InstancePerLifetimeScope();
 });
 
-// Настройка DbContext через DI
 builder.Services.AddDbContext<Db>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Добавление сервисов в контейнер
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Настройка аутентификации (например, JWT)
+//jwt аунтификация
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = "JwtBearer";
@@ -52,7 +49,7 @@ builder.Services.AddAuthentication(options =>
 {
     options.TokenValidationParameters = new TokenValidationParameters
     {
-        // Настройка параметров проверки токена
+        //Параметры проверки токена
         ValidIssuer = builder.Configuration["Jwt:Issuer"],
         ValidAudience = builder.Configuration["Jwt:Audience"],
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])),
@@ -65,8 +62,8 @@ builder.Services.AddAuthentication(options =>
 
 var app = builder.Build();
 
-// Конфигурация pipeline
-if (app.Environment.IsDevelopment() || true)
+
+if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
     app.UseSwagger();
