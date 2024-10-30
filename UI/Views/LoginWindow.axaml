@@ -7,7 +7,7 @@
         mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="180"
         x:Class="UI.LoginWindow"
 		x:DataType="vm:LoginViewModel"
-        Title="LoginWindow">
+        Title="Авторизация" Height="180" Width="400" WindowStartupLocation="CenterScreen">
 	<StackPanel Margin="20" VerticalAlignment="Center">
 		<TextBlock Text="Вход в систему" FontSize="20" HorizontalAlignment="Center" Margin="5"/>
 		<Grid>

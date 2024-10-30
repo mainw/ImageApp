@@ -6,8 +6,7 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="UI.MainWindow"
         x:DataType="vm:MainWindowViewModel"
-        Title="UI" Foreground="Black"
-        SystemDecorations="None">
+        Title="Список изображений" Foreground="Black" Height="500" Width="880" WindowStartupLocation="CenterScreen">
 	<Window.Styles>
 		<Style Selector="Border">
 			<Setter Property="BorderBrush" Value="Black"/>

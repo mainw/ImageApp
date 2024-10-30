@@ -26,7 +26,7 @@ namespace API.ImageService.Repository
                 _context.SaveChanges();
             }
             else
-                throw new Exception("Изображение не найдено. Удаление не возможно.");
+                throw new Exception("Изображение не найдено. Удаление невозможно.");
         }
         public Image? GetById(int imageId)
         {
